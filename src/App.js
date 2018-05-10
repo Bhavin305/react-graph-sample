@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import '../node_modules/react-vis/dist/style.css';
-import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries } from 'react-vis';
+import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries, DiscreteColorLegend } from 'react-vis';
 
 const parseCSV = (file, delimiter, callback) => {
   var data = {};
@@ -16,6 +16,7 @@ const parseCSV = (file, delimiter, callback) => {
         data[headers[0]].push({ x, y });
       }
     }
+    console.log(data);
     callback(data); // TODO : Validation 
   }
   reader.readAsText(file);
@@ -54,6 +55,11 @@ class App extends React.Component {
           }
           <XAxis />
           <YAxis />
+          <DiscreteColorLegend
+            orientation="vertical"
+            width={300}
+            items={Object.keys(this.state.data)}
+          />
         </XYPlot>
       </div>
     );
